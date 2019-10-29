@@ -2,7 +2,7 @@ package throwables;
 
 import java.util.function.Function;
 
-public class Failure extends Try {
+public class Failure implements Try {
 
     private StackTraceElement[] stackTraceElement;
     private String cause;
@@ -13,7 +13,7 @@ public class Failure extends Try {
     }
 
     @Override
-    Try map(Function mapper) {
+    public Try map(Function mapper) {
         return this;
     }
 

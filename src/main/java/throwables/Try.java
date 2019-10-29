@@ -2,7 +2,7 @@ package throwables;
 
 import java.util.function.Function;
 
-public abstract class Try<T> {
+public interface Try<T> {
 
     static <T, R> Try apply(ThrowableFunction<T, R> o, T p) {
         try {
@@ -20,11 +20,11 @@ public abstract class Try<T> {
         }
     }
 
-    public boolean isSuccess() {
+    default public boolean isSuccess() {
         return this.getClass().equals(Success.class);
     }
 
-    public boolean isFailure() {
+    default public boolean isFailure() {
         return this.getClass().equals(Failure.class);
     }
 

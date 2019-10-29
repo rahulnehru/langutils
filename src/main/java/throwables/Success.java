@@ -2,7 +2,7 @@ package throwables;
 
 import java.util.function.Function;
 
-public class Success<T> extends Try<T> {
+public class Success<T> implements Try<T> {
 
     private T o;
 
@@ -15,11 +15,11 @@ public class Success<T> extends Try<T> {
     }
 
     public static <R> throwables.Success<R> of(R r) {
-        return new throwables.Success<R>(r);
+        return new throwables.Success<>(r);
     }
 
     @Override
-    <R> Try<R> map(Function<? super T, ? extends R> mapper) {
-        return new throwables.Success<R>(mapper.apply(o));
+    public <R> Try<R> map(Function<? super T, ? extends R> mapper) {
+        return new throwables.Success<>(mapper.apply(o));
     }
 }
