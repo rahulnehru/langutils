@@ -24,4 +24,9 @@ public class Failure implements Try {
     public String getCause() {
         return cause;
     }
+
+    @Override
+    public Object get() {
+        throw new FailureException(cause);
+    }
 }

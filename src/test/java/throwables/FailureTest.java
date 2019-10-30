@@ -20,4 +20,9 @@ public class FailureTest {
         assertEquals("foo", failure.getCause());
     }
 
+    @Test(expected = FailureException.class)
+    public void getThrowsFailureException() {
+        failure.get();
+    }
+
 }

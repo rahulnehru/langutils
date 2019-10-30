@@ -92,4 +92,22 @@ public class TryTest {
         assertFalse(tried.isFailure());
     }
 
+    @Test
+    public void orGetReturnsFunctionReturnValueWhenSuccess() {
+        ThrowableFunction<String, String> f = s -> "result";
+
+        Try<String> tried = Try.apply(f, "foo");
+
+        assertEquals("result", tried.orGet("default"));
+    }
+
+    @Test
+    public void orGetReturnsDefaultValueWhenFunctionFails() {
+        ThrowableFunction<String, String> f = s -> {throw new Exception("");};
+
+        Try<String> tried = Try.apply(f, "foo");
+
+        assertEquals("default", tried.orGet("default"));
+    }
+
 }

@@ -30,4 +30,10 @@ public interface Try<T> {
 
     abstract <R> Try<R> map(Function<? super T, ? extends R> mapper);
 
+    public <T> T get() throws FailureException;
+
+    public default <T> T orGet(T defaultValue) {
+        return isFailure() ? defaultValue : this.get();
+    }
+
 }
