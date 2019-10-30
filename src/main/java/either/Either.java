@@ -15,4 +15,8 @@ public interface Either<L, R> {
     <T, A, B> Either<A, B> map(Function<T, A> mapper);
 
     <T> T value();
+
+    default Either<R, L> swap() {
+        return isLeft() ? new Right<L>(value()) : new Left<R>(value());
+    }
 }

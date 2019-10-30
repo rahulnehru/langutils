@@ -3,7 +3,9 @@ package collections;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
+
+import static java.util.stream.Collectors.toList;
 
 
 /**
@@ -41,7 +43,7 @@ public class List<T> {
     }
 
     public <R> List map(Function<T, R> mapper) {
-        return of(innerList.stream().map(mapper).collect(Collectors.toList()));
+        return of(innerList.stream().map(mapper).collect(toList()));
     }
 
     public ArrayList<T> get() {
@@ -80,4 +82,21 @@ public class List<T> {
         return of(this.innerList, t);
     }
 
+    public List<List<T>> split(Predicate<T> predicate) {
+        List<T> matches = of(this.innerList.stream().filter(predicate).collect(toList()));
+        List<T> nonMatches = of(this.innerList.stream().filter(predicate.negate()).collect(toList()));
+        return of(matches, nonMatches);
+    }
+
+    public List<List<T>> split(int sizes) {
+        List l = new List();
+        for (int i = 0; i < this.innerList.size(); i+=sizes) {
+            if(this.innerList.size() > i+sizes) {
+                l.innerList.add(of(this.innerList.subList(i, i+sizes)));
+            } else {
+                l.innerList.add(of(this.innerList.subList(i, this.innerList.size())));
+            }
+        }
+        return l;
+    }
 }

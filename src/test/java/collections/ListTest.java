@@ -3,8 +3,10 @@ package collections;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.function.BiFunction;
+import java.util.function.Predicate;
 
 import static junit.framework.TestCase.*;
 
@@ -136,5 +138,39 @@ public class ListTest {
 
         assertEquals(1, r.size());
         assertEquals("world", r.get().get(0));
+    }
+
+    @Test
+    public void splitWillSplitAListCorrectlyOnPredicate() {
+        List l = List.of("redgreen", "bluegreen", "redblue", "greenblue");
+        Predicate<String> getReds = s -> s.contains("red");
+
+        List<List<String>> splits = l.split(getReds);
+        assertEquals(2, splits.size());
+        assertEquals(2, splits.get(0).size());
+        assertEquals(2, splits.get(1).size());
+        assertTrue(splits.get(0).get().stream().allMatch(getReds));
+        assertTrue(splits.get(1).get().stream().allMatch(getReds.negate()));
+    }
+
+    @Test
+    public void splitChunksBasedOnSize() {
+        List l = List.of(1,2,3,4,5,6,7,8,9,10,11,12,13,14);
+        List lists = l.split(3);
+
+        assertEquals(5, lists.size());
+        assertEquals(3, ((List) lists.get(0)).size());
+        assertEquals(3, ((List) lists.get(1)).size());
+        assertEquals(3, ((List) lists.get(2)).size());
+        assertEquals(3, ((List) lists.get(3)).size());
+        assertEquals(2, ((List) lists.get(4)).size());
+    }
+
+    @Test
+    public void splitReturnsEmptyListWhenEmpty() {
+        List l = List.of();
+        List lists = l.split(3);
+
+        assertEquals(0, lists.size());
     }
 }

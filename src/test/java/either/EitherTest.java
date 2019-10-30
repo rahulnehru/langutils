@@ -27,4 +27,9 @@ public class EitherTest {
         assertTrue(either(false).isRight());
     }
 
+    @Test
+    public void swap() {
+        assertTrue(either(true).swap().isRight());
+        assertTrue(either(false).swap().isLeft());
+    }
 }
