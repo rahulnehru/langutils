@@ -90,13 +90,12 @@ public class List<T> {
 
     public List<List<T>> split(int sizes) {
         List l = new List();
-        for (int i = 0; i < this.innerList.size(); i+=sizes) {
-            if(this.innerList.size() > i+sizes) {
-                l.innerList.add(of(this.innerList.subList(i, i+sizes)));
-            } else {
-                l.innerList.add(of(this.innerList.subList(i, this.innerList.size())));
-            }
+        for (int min = 0; min < this.innerList.size(); min += sizes) {
+            int max = this.innerList.size() > min + sizes ? min + sizes : this.innerList.size();
+            l.innerList.add(of(this.innerList.subList(min, max)));
         }
         return l;
     }
+
+
 }
