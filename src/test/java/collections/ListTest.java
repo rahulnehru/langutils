@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
@@ -173,4 +174,58 @@ public class ListTest {
 
         assertEquals(0, lists.size());
     }
+
+    @Test
+    public void tailReturnsTailOfListWhenNonEmpty() {
+        List l = List.of("a", "b", "c");
+        assertEquals(2, l.tail().size());
+    }
+
+    @Test
+    public void tailReturnsTailOfListWhenSizeOne() {
+        List l = List.of("a");
+        assertEquals(0, l.tail().size());
+    }
+
+    @Test
+    public void tailReturnsTailOfListWhenEmpty() {
+        List l = List.of();
+        assertEquals(0, l.tail().size());
+    }
+
+    @Test
+    public void headReturnsFirstElementWhenNonEmpty() {
+        List l = List.of("a", "b", "c");
+        assertEquals("a", l.head());
+    }
+
+    @Test
+    public void headReturnsFirstElementWhenSizeOne() {
+        List l = List.of("a");
+        assertEquals("a", l.head());
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void headThrowsExceptionWhenEmpty() {
+        List.of().head();
+    }
+
+    @Test
+    public void headOptionalReturnsSomeOfElementWhenNonEmpty() {
+        List l = List.of("a", "b", "c");
+        assertEquals("a", l.headOption().get());
+    }
+
+    @Test
+    public void headOptionalReturnsSomeOfElementWhenSizeOne() {
+        List l = List.of("a");
+        assertEquals("a", l.headOption().get());
+    }
+
+    @Test
+    public void headOptionalReturnsNoneWhenEmpty() {
+        List l = List.of();
+        assertEquals(Optional.empty(), l.headOption());
+    }
+
 }

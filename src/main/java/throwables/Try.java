@@ -20,19 +20,19 @@ public interface Try<T> {
         }
     }
 
-    default public boolean isSuccess() {
+    default boolean isSuccess() {
         return this.getClass().equals(Success.class);
     }
 
-    default public boolean isFailure() {
+    default boolean isFailure() {
         return this.getClass().equals(Failure.class);
     }
 
     <R> Try<R> map(Function<? super T, ? extends R> mapper);
 
-    <T> T get() throws FailureException;
+    T get() throws FailureException;
 
-    public default <T> T orGet(T defaultValue) {
+    default T orGet(T defaultValue) {
         return isFailure() ? defaultValue : this.get();
     }
 

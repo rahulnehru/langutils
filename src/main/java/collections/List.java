@@ -1,5 +1,8 @@
 package collections;
 
+import throwables.ThrowableFunction;
+import throwables.Try;
+
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -95,6 +98,21 @@ public class List<T> {
             l.innerList.add(of(this.innerList.subList(min, max)));
         }
         return l;
+    }
+
+
+    public List tail() {
+        return size() > 0 ? of(innerList.subList(1, size())) : of();
+    }
+
+    public T head() {
+        return innerList.get(0);
+    }
+
+    public Optional<T> headOption() {
+        ThrowableFunction<List<T>, Optional<T>> f = l -> Optional.of(l.head());
+
+        return (Optional<T>) Try.apply(f, this).orGet(Optional.empty());
     }
 
 
