@@ -3,7 +3,6 @@ package collections;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -21,7 +20,7 @@ public class ListTest {
 
     @Test
     public void ofReturnsNewListWhenParamsEmpty() {
-        List l = List.of();
+        List l = List.empty();
         assertNotNull(l);
     }
 
@@ -35,7 +34,7 @@ public class ListTest {
 
     @Test
     public void getReturnsInternalArrayListWhenInstantiatedWithNoParam() {
-        List l = List.of();
+        List l = List.empty();
         assertEquals(ArrayList.class, l.get().getClass());
         assertEquals(0, l.get().size());
     }
@@ -49,7 +48,7 @@ public class ListTest {
     @Test
     public void mapReturnsMappedListWhenNotEmpty() {
         List l = List.of("foo", "bar", "bat");
-        List r = l.map(t -> "wow");
+        List<String> r = l.map(t -> "wow");
         assertEquals(3, r.get().size());
         assertEquals("wow", r.get().get(0));
         assertEquals("wow", r.get().get(1));
@@ -58,7 +57,7 @@ public class ListTest {
 
     @Test
     public void mapReturnEmptyListWhenEmpty() {
-        List l = List.of();
+        List l = List.empty();
         List r = l.map(t -> "wow");
         assertEquals(0, r.get().size());
     }
@@ -78,7 +77,7 @@ public class ListTest {
 
     @Test
     public void zipWithIndexReturnsEmptyMapWhenEmpty() {
-        List l = List.of();
+        List l = List.empty();
         Map r = l.zipWithIndex();
         assertEquals(0, r.size());
     }
@@ -87,7 +86,7 @@ public class ListTest {
     public void zipWithReturnsAMapOfMappedValuesAndItemWhenNotEmpty() {
         List l = List.of("foo", "bar", "bat");
         BiFunction<String, Integer, String> f = (t, i) -> i.toString();
-        Map r = l.zipWith(f);
+        Map<String, String> r = l.zipWith(f);
         assertEquals(3, r.size());
         assertTrue(r.containsKey("0"));
         assertEquals("foo", r.get("0"));
@@ -99,15 +98,15 @@ public class ListTest {
 
     @Test
     public void zipWithReturnsEmptyMap() {
-        List l = List.of();
-        Map r = l.zipWith((s,i) -> "");
+        List<String> l = List.empty();
+        Map<String, String> r = l.zipWith((s,i) -> "");
         assertEquals(0, r.size());
     }
 
     @Test
     public void sizeReturnsSizeOfContainedList() {
         List l = List.of("hello");
-        List m = List.of();
+        List m = List.empty();
 
         assertEquals(1, l.size());
         assertEquals(0, m.size());
@@ -116,7 +115,7 @@ public class ListTest {
     @Test
     public void isEmpty() {
         List l = List.of("hello");
-        List m = List.of();
+        List m = List.empty();
 
         assertTrue(m.isEmpty());
         assertFalse(l.isEmpty());
@@ -124,8 +123,8 @@ public class ListTest {
 
     @Test
     public void addReturnsNewListWithAppendedItemWhenOriginalIsNotEmpty() {
-        List l = List.of("hello");
-        List r = l.add("world");
+        List<String> l = List.of("hello");
+        List<String> r = l.add("world");
 
         assertEquals(2, r.size());
         assertEquals("hello", r.get().get(0));
@@ -134,8 +133,8 @@ public class ListTest {
 
     @Test
     public void addReturnsNewListWithAppendedItemWhenOriginalIsEmpty() {
-        List l = List.of();
-        List r = l.add("world");
+        List<String> l = List.empty();
+        List<String> r = l.add("world");
 
         assertEquals(1, r.size());
         assertEquals("world", r.get().get(0));
@@ -169,7 +168,7 @@ public class ListTest {
 
     @Test
     public void splitReturnsEmptyListWhenEmpty() {
-        List l = List.of();
+        List l = List.empty();
         List lists = l.split(3);
 
         assertEquals(0, lists.size());
@@ -189,7 +188,7 @@ public class ListTest {
 
     @Test
     public void tailReturnsTailOfListWhenEmpty() {
-        List l = List.of();
+        List l = List.empty();
         assertEquals(0, l.tail().size());
     }
 
@@ -207,25 +206,64 @@ public class ListTest {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void headThrowsExceptionWhenEmpty() {
-        List.of().head();
+        List.empty().head();
     }
 
     @Test
     public void headOptionalReturnsSomeOfElementWhenNonEmpty() {
         List l = List.of("a", "b", "c");
-        assertEquals("a", l.headOption().get());
+        assertEquals(Optional.of("a"), l.headOption());
     }
 
     @Test
     public void headOptionalReturnsSomeOfElementWhenSizeOne() {
         List l = List.of("a");
-        assertEquals("a", l.headOption().get());
+        assertEquals(Optional.of("a"), l.headOption());
     }
 
     @Test
     public void headOptionalReturnsNoneWhenEmpty() {
-        List l = List.of();
+        List l = List.empty();
         assertEquals(Optional.empty(), l.headOption());
+    }
+
+    @Test
+    public void foldLeftReturnsSeedWhenEmpty() {
+        List l = List.empty();
+        BiFunction<Integer, String, Integer> foldFunction = (acc, t) -> (acc + Integer.parseInt(t));
+        assertEquals(0, l.foldLeft(0).apply(foldFunction));
+    }
+
+    @Test
+    public void foldLeftReturnsSeedWhenNonEmpty() {
+        List l = List.of("1", "3", "11");
+        BiFunction<Integer, String, Integer> foldFunction = (acc, t) -> (acc + Integer.parseInt(t));
+        assertEquals(19, l.foldLeft(4).apply(foldFunction));
+    }
+
+    @Test
+    public void foldLeftReturnsSeedWhenSizeOne() {
+        List l = List.of("1");
+        BiFunction<Integer, String, Integer> foldFunction = (acc, t) -> (acc + Integer.parseInt(t));
+        assertEquals(5, l.foldLeft(4).apply(foldFunction));
+    }
+
+    @Test
+    public void foldLeftRunsFromRightToLeft() {
+        List l = List.of("a", "b", "c");
+        BiFunction<String, String, String> foldFunction = (acc, t) -> acc + t;
+        assertEquals("abc", l.foldLeft("").apply(foldFunction));
+    }
+
+    @Test
+    public void foldLeftIsCompatibleWithCollections() {
+        List l = List.of("a", "b", "c");
+        BiFunction<List<String>, String, List<String>> foldFunction = List::add;
+        List<String> u = (List<String>) l.foldLeft(List.empty()).apply(foldFunction);
+        assertEquals(3, u.size());
+        assertEquals("a", u.get(0));
+        assertEquals("b", u.get(1));
+        assertEquals("c", u.get(2));
     }
 
 }

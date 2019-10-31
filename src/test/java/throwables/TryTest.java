@@ -2,6 +2,7 @@ package throwables;
 
 import org.junit.Test;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 import static org.junit.Assert.assertEquals;
@@ -108,6 +109,24 @@ public class TryTest {
         Try<String> tried = Try.apply(f, "foo");
 
         assertEquals("default", tried.orGet("default"));
+    }
+
+    @Test
+    public void getOptionalReturnsOptionOfWhenSuccessful() {
+        ThrowableFunction<String, String> f = s -> "result";
+
+        Try<String> tried = Try.apply(f, "foo");
+
+        assertEquals(Optional.of("result"), tried.getOption());
+    }
+
+    @Test
+    public void getOptionalReturnsEmptyWhenFailure() {
+        ThrowableFunction<String, String> f = s -> {throw new Exception("");};
+
+        Try<String> tried = Try.apply(f, "foo");
+
+        assertEquals(Optional.empty(), tried.getOption());
     }
 
 }

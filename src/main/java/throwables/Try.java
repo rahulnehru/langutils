@@ -1,12 +1,13 @@
 package throwables;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 public interface Try<T> {
 
     static <T, R> Try apply(ThrowableFunction<T, R> o, T p) {
         try {
-            return new Success<R>(o.accept(p));
+            return new Success<>(o.accept(p));
         } catch (Throwable e) {
             return new Failure(e.getStackTrace(), e.getMessage());
         }
@@ -14,7 +15,7 @@ public interface Try<T> {
 
     static <T, U, R> Try apply(ThrowableBiFunction<T, U, R> o, T t, U u) {
         try {
-            return new Success<R>(o.accept(t, u));
+            return new Success<>(o.accept(t, u));
         } catch (Throwable e) {
             return new Failure(e.getStackTrace(), e.getMessage());
         }
@@ -34,6 +35,10 @@ public interface Try<T> {
 
     default T orGet(T defaultValue) {
         return isFailure() ? defaultValue : this.get();
+    }
+
+    default Optional<T> getOption() {
+        return isSuccess() ? Optional.of(get()) : Optional.empty();
     }
 
 }

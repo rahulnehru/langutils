@@ -27,19 +27,23 @@ public class List<T> {
         this.innerList = new ArrayList<>();
     }
 
-    public static <T extends Object> List of(T... items) {
+    public static <T> List<T> empty() {
+        return new List<>();
+    }
+
+    public static <T> List<T> of(T... items) {
         List<T> newList = new List<>();
         newList.innerList.addAll(Arrays.asList(items));
         return newList;
     }
 
-    public static <T extends Object> List of(Collection<T> items) {
+    public static <T> List<T> of(Collection<T> items) {
         List<T> newList = new List<>();
         newList.innerList.addAll(items);
         return newList;
     }
 
-    public static <T extends Object> List of(Collection<T> items, T... t) {
+    public static <T> List<T> of(Collection<T> items, T... t) {
         List<T> newList = of(items);
         newList.innerList.addAll(Arrays.asList(t));
         return newList;
@@ -81,7 +85,7 @@ public class List<T> {
         return innerList.isEmpty();
     }
 
-    public List add(T... t) {
+    public List<T> add(T... t) {
         return of(this.innerList, t);
     }
 
@@ -92,7 +96,7 @@ public class List<T> {
     }
 
     public List<List<T>> split(int sizes) {
-        List l = new List();
+        List<List<T>> l = new List<>();
         for (int min = 0; min < this.innerList.size(); min += sizes) {
             int max = this.innerList.size() > min + sizes ? min + sizes : this.innerList.size();
             l.innerList.add(of(this.innerList.subList(min, max)));
@@ -101,7 +105,7 @@ public class List<T> {
     }
 
 
-    public List tail() {
+    public List<T> tail() {
         return size() > 0 ? of(innerList.subList(1, size())) : of();
     }
 
@@ -110,10 +114,20 @@ public class List<T> {
     }
 
     public Optional<T> headOption() {
-        ThrowableFunction<List<T>, Optional<T>> f = l -> Optional.of(l.head());
-
-        return (Optional<T>) Try.apply(f, this).orGet(Optional.empty());
+        return (Optional<T>) Try.apply(l -> Optional.of(l.head()), this)
+                .orGet(Optional.empty());
     }
 
+    public <U> Function<BiFunction<U, T, U>, U> foldLeft(U seed) {
+        return function -> {
+            U acc = this.headOption().isPresent() ? function.apply(seed, this.head()) : seed;
+            List<T> tail = this.tail();
+            while(tail.size()>0) {
+                acc = function.apply(acc, tail.head());
+                tail = tail.tail();
+            }
+            return acc;
+        };
+    }
 
 }
