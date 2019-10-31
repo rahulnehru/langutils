@@ -114,8 +114,7 @@ public class List<T> {
     }
 
     public Optional<T> headOption() {
-        return (Optional<T>) Try.apply(l -> Optional.of(l.head()), this)
-                .orGet(Optional.empty());
+        return Try.apply(l -> l.head(), this).getOption();
     }
 
     public <U> Function<BiFunction<U, T, U>, U> foldLeft(U seed) {
