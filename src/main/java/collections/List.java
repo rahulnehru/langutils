@@ -1,6 +1,5 @@
 package collections;
 
-import throwables.ThrowableFunction;
 import throwables.Try;
 
 import java.util.*;
