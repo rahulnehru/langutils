@@ -9,15 +9,6 @@ import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toList;
 
-
-/**
- * An immutable wrapper around ArrayList<T> to provide utilities for
- * better functional programming. This is safer to use than ArrayList in
- * multi-threaded functional processing of collections.
- *
- * @param <T>
- */
-
 public class List<T> {
 
     private ArrayList<T> innerList;
