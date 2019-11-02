@@ -12,10 +12,10 @@ public class MatchTest {
     public void matchCaze() {
         StringBuffer sb = new StringBuffer();
         match("s",
-                caze(String.class, (p) -> p.contains("t"), (t) -> sb.append("I'm a string with letter t")),
-                caze(String.class, (p) -> p.contains("s"), (t) -> sb.append("I'm a string with letter s")),
-                caze(Integer.class, (t) -> sb.append("I'm an int")),
-                caze(Double.class, (t) -> sb.append("I'm a double"))
+                kase(String.class, (p) -> p.contains("t"), (t) -> sb.append("I'm a string with letter t")),
+                kase(String.class, (p) -> p.contains("s"), (t) -> sb.append("I'm a string with letter s")),
+                kase(Integer.class, (t) -> sb.append("I'm an int")),
+                kase(Double.class, (t) -> sb.append("I'm a double"))
         );
         assertEquals("I'm a string with letter s", sb.toString());
     }
