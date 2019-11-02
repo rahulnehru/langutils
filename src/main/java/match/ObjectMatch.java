@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class Match {
+public class ObjectMatch {
 
     public static <T> void match(T o, Consumer... a) {
         for (Consumer consumer : a) {

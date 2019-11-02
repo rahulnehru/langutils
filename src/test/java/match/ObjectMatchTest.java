@@ -2,11 +2,10 @@ package match;
 
 import org.junit.Test;
 
-import static match.Match.*;
+import static match.ObjectMatch.*;
 import static org.junit.Assert.assertEquals;
 
-public class MatchTest {
-
+public class ObjectMatchTest {
 
     @Test
     public void matchCaze() {
@@ -31,6 +30,13 @@ public class MatchTest {
                 );
 
         assertEquals(3, i);
+    }
+
+    @Test(expected = MatchException.class)
+    public void matchMapThrowsExceptionWhenNoMatch() {
+        match(2,
+                map(String.class, (t) -> 1)
+        );
     }
 
 
