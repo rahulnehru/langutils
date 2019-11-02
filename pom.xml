@@ -6,7 +6,7 @@
 
     <groupId>com.rnehru</groupId>
     <artifactId>langutils</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <description>Simple library for Java projects for a better functional programming experience, based on the Scala
         language.
     </description>

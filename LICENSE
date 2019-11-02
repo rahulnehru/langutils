@@ -86,7 +86,7 @@ in a fashion requiring copyright permission, other than the making of an
 exact copy.  The resulting work is called a "modified version" of the
 earlier work or a work "based on" the earlier work.
 
-  A "covered work" means either the unmodified Program or a work based
+  A "covered work" means com.rnehru.langutils.either the unmodified Program or a work based
 on the Program.
 
   To "propagate" a work means to do anything with it that, without
@@ -115,7 +115,7 @@ menu, a prominent item in the list meets this criterion.
 for making modifications to it.  "Object code" means any non-source
 form of a work.
 
-  A "Standard Interface" means an interface that either is an official
+  A "Standard Interface" means an interface that com.rnehru.langutils.either is an official
 standard defined by a recognized standards body, or, in the case of
 interfaces specified for a particular programming language, one that
 is widely used among developers working in that language.
@@ -258,7 +258,7 @@ in one of these ways:
     (including a physical distribution medium), accompanied by a
     written offer, valid for at least three years and valid for as
     long as you offer spare parts or customer support for that product
-    model, to give anyone who possesses the object code either (1) a
+    model, to give anyone who possesses the object code com.rnehru.langutils.either (1) a
     copy of the Corresponding Source for all the software in the
     product that is covered by this License, on a durable physical
     medium customarily used for software interchange, for a price no
@@ -294,7 +294,7 @@ in one of these ways:
 from the Corresponding Source as a System Library, need not be
 included in conveying the object code work.
 
-  A "User Product" is either (1) a "consumer product", which means any
+  A "User Product" is com.rnehru.langutils.either (1) a "consumer product", which means any
 tangible personal property which is normally used for personal, family,
 or household purposes, or (2) anything designed or sold for incorporation
 into a dwelling.  In determining whether a product is a consumer product,
@@ -402,7 +402,7 @@ where to find the applicable terms.
 
   Additional terms, permissive or non-permissive, may be stated in the
 form of a separately written license, or stated as exceptions;
-the above requirements apply either way.
+the above requirements apply com.rnehru.langutils.either way.
 
   8. Termination.
 
@@ -500,7 +500,7 @@ patent against the party.
 and the Corresponding Source of the work is not available for anyone
 to copy, free of charge and under the terms of this License, through a
 publicly available network server or other readily accessible means,
-then you must either (1) cause the Corresponding Source to be so
+then you must com.rnehru.langutils.either (1) cause the Corresponding Source to be so
 available, or (2) arrange to deprive yourself of the benefit of the
 patent license for this particular work, or (3) arrange, in a manner
 consistent with the requirements of this License, to extend the patent
@@ -570,7 +570,7 @@ address new problems or concerns.
   Each version is given a distinguishing version number.  If the
 Program specifies that a certain numbered version of the GNU General
 Public License "or any later version" applies to it, you have the
-option of following the terms and conditions either of that numbered
+option of following the terms and conditions com.rnehru.langutils.either of that numbered
 version or of any later version published by the Free Software
 Foundation.  If the Program does not specify a version number of the
 GNU General Public License, you may choose any version ever published
@@ -636,7 +636,7 @@ the "copyright" line and a pointer to where the full notice is found.
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
+    the Free Software Foundation, com.rnehru.langutils.either version 3 of the License, or
     (at your option) any later version.
 
     This program is distributed in the hope that it will be useful,
