@@ -1,9 +1,9 @@
 package com.rnehru.langutils.collections;
 
-import com.rnehru.langutils.collections.List;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -267,4 +267,57 @@ public class ListTest {
         assertEquals("c", u.get(2));
     }
 
+    @Test
+    public void reverseReturnsEmptyListWhenEmpty() {
+        List l = List.empty();
+        assertTrue(l.reverse().isEmpty());
+    }
+
+    @Test
+    public void reverseReturnsReversedListWhenNotEmpty() {
+        List l = List.of("a", "b", "c");
+        List r = l.reverse();
+        assertEquals("c", r.get(0));
+        assertEquals("b", r.get(1));
+        assertEquals("a", r.get(2));
+    }
+
+    @Test
+    public void flattenReturnsEmptyListWhenListOfListsIsEmpty() {
+        List l = List.empty();
+        assertTrue(l.flatten().isEmpty());
+    }
+
+    @Test
+    public void flattenReturnsEmptyListWhenListContainsEmptyLists() {
+        Collection l1 = List.empty().get();
+        Collection l2 = List.empty().get();
+        Collection l3 = List.empty().get();
+        List l = List.of(l1, l2, l3);
+        assertTrue(l.flatten().isEmpty());
+    }
+
+    @Test
+    public void flattenReturnsFlattenedListWhenCollectionsNotEmpty() {
+        Collection l1 = List.of("a").get();
+        Collection l2 = List.of("b").get();
+        Collection l3 = List.of("c").get();
+        List l = List.of(List.empty().get(), l1, l2, l3).flatten();
+        assertFalse(l.isEmpty());
+        assertEquals("a", l.get(0));
+        assertEquals("b", l.get(1));
+        assertEquals("c", l.get(2));
+    }
+
+    @Test
+    public void flattenReturnsFlattenedListWhenListsNotEmpty() {
+        List l1 = List.of("a");
+        List l2 = List.of("b");
+        List l3 = List.of("c");
+        List l = List.of(List.empty(), l1, l2, l3).flatten();
+        assertFalse(l.isEmpty());
+        assertEquals("a", l.get(0));
+        assertEquals("b", l.get(1));
+        assertEquals("c", l.get(2));
+    }
 }

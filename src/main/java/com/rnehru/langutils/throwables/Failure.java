@@ -2,7 +2,7 @@ package com.rnehru.langutils.throwables;
 
 import java.util.function.Function;
 
-public class Failure implements Try {
+public final class Failure implements Try {
 
     private StackTraceElement[] stackTraceElement;
     private String cause;
@@ -17,16 +17,16 @@ public class Failure implements Try {
         return this;
     }
 
-    public StackTraceElement[] getStackTraceElement() {
+    public final StackTraceElement[] getStackTraceElement() {
         return stackTraceElement;
     }
 
-    public String getCause() {
+    public final String getCause() {
         return cause;
     }
 
     @Override
-    public Object get() {
+    public final Object get() {
         throw new FailureException(cause);
     }
 }

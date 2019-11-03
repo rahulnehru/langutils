@@ -10,7 +10,7 @@ import java.util.function.Predicate;
  *
  */
 
-public class ObjectMatch {
+public final class ObjectMatch {
 
     /** match is used in conjunction with kase statements to provide means to produce a side effect (a consumer function)
      * based on the (undetermined) type of an object e.g.

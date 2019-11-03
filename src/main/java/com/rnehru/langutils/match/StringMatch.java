@@ -8,7 +8,7 @@ import java.util.function.Function;
  * String is used to provide Match-Kase and Match-Map functionality on String objects for regex matching
  *
  */
-public class StringMatch {
+public final class StringMatch {
 
     @SafeVarargs
     public static <T> T match(String s, Function<String, Optional<T>>... f) {

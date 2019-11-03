@@ -1,5 +1,6 @@
 package com.rnehru.langutils.collections;
 
+import com.rnehru.langutils.match.ObjectMatch;
 import com.rnehru.langutils.throwables.Try;
 
 import java.util.*;
@@ -7,6 +8,8 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import static com.rnehru.langutils.match.ObjectMatch.kase;
+import static com.rnehru.langutils.match.ObjectMatch.match;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -14,7 +17,7 @@ import static java.util.stream.Collectors.toList;
  *
  * @param <T> type of underlying object in ArrayList
  */
-public class List<T> {
+public final class List<T> {
 
     private ArrayList<T> innerList;
 
@@ -60,6 +63,12 @@ public class List<T> {
         List<T> newList = new List<>();
         newList.innerList.addAll(items);
         return newList;
+    }
+
+    public List<T> merge(List<T> otherList) {
+        List<T> l = this;
+        l.innerList.addAll(otherList.innerList);
+        return l;
     }
 
     /**
@@ -266,6 +275,29 @@ public class List<T> {
             }
             return acc;
         };
+    }
+
+    /**
+     * Reverses the order of the list
+     *
+     * @return a new list with the order reversed
+     */
+
+    public final List<T> reverse() {
+        java.util.List<T> al = new ArrayList<>();
+        for (int i = this.innerList.size() - 1; i >= 0; i--) {
+            al.add(this.innerList.get(i));
+        }
+        return List.of(al);
+    }
+
+
+    public final <U> List<U> flatten() {
+        return this.foldLeft(List.<U>empty()).apply((acc, l) ->
+                ObjectMatch.match(l,
+                        ObjectMatch.map(Collection.class, c -> acc.merge(List.<U>of(c))),
+                        ObjectMatch.map(List.class, (Function<List, List>) acc::merge)
+                ));
     }
 
 }
