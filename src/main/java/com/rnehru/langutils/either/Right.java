@@ -2,21 +2,34 @@ package com.rnehru.langutils.either;
 
 import java.util.function.Function;
 
-public class Right<R> implements Either {
+public final class Right<R> implements Either {
 
-    private R inner;
+    private final R inner;
+    
+    /** Constructor for the Right implementation of Either
+     * @param inner value to be captured in Right
+     */
 
     public Right(R inner) {
         this.inner = inner;
     }
-
+    
+    /** Maps the Right value
+     * @param mapper function used to map the ledt and right values
+     * @return a Right containing the mapped value
+     */
+    
     @Override
-    public Either map(Function mapper) {
+    public final Either map(Function mapper) {
         return new Right<>(mapper.apply(inner));
     }
 
+    /** Getter for the value inside the Right
+     * @return the underlying member of type R
+     */
+    
     @Override
-    public R value() {
+    public final R value() {
         return inner;
     }
 }

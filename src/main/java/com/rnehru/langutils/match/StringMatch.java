@@ -4,6 +4,10 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/**
+ * String is used to provide Match-Kase and Match-Map functionality on String objects for regex matching
+ *
+ */
 public class StringMatch {
 
     @SafeVarargs
@@ -14,7 +18,7 @@ public class StringMatch {
                 return opF.get();
             }
         }
-        throw new MatchException("Could pattern com.rnehru.langutils.match String  " + s);
+        throw new MatchException("Could pattern match String  " + s);
     }
 
     @SafeVarargs
