@@ -29,7 +29,7 @@ and the following repository:
 
 ## Topics
 
-1. [Collections](com/rnehru/langutils/collections/collections.md)
+1. [Collections](./src/main/java/com/rnehru/langutils/collections/collections.md)
 2. [Either]()
 3. [Match]()
 4. [Throwables]()
