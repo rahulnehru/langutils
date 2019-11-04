@@ -8,8 +8,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import static com.rnehru.langutils.match.ObjectMatch.kase;
-import static com.rnehru.langutils.match.ObjectMatch.match;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -290,7 +288,6 @@ public final class List<T> {
         }
         return List.of(al);
     }
-
 
     public final <U> List<U> flatten() {
         return this.foldLeft(List.<U>empty()).apply((acc, l) ->
