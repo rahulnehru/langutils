@@ -30,10 +30,10 @@ and the following repository:
 ## Topics
 
 1. [Collections](./src/main/java/com/rnehru/langutils/collections/collections.md)
-2. [Either]()
-3. [Match]()
-4. [Throwables]()
-5. [Validated]()
+2. [Either](src/main/java/com/rnehru/langutils/either/either.md)
+3. [Match](./src/main/java/com/rnehru/langutils/match/match.md)
+4. [Throwables](./src/main/java/com/rnehru/langutils/throwables/throwables.md)
+5. [Validated](./src/main/java/com/rnehru/langutils/validated/validated.md)
 
 ## Contributing
 
