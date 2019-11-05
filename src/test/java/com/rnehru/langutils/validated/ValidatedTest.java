@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.List;
 import java.util.function.Predicate;
 
+import static com.rnehru.langutils.validated.Validated.combine;
+import static com.rnehru.langutils.validated.Validated.validate;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -15,7 +17,7 @@ public class ValidatedTest {
     public void validateReturnsValidWhenValidationPasses() throws ValidationProjectionError {
         Predicate<Integer> predicate = i -> i > 3;
 
-        Validated i = Validated.validate(predicate, "Help").apply(4);
+        Validated i = validate(predicate, "Help").apply(4);
 
         assertTrue(i.isValid());
         assertEquals(4, i.projectValid().getInternal());
@@ -25,7 +27,7 @@ public class ValidatedTest {
     public void validateReturnsInvalidWhenValidationFails() throws ValidationProjectionError {
         Predicate<Integer> predicate = i -> i > 3;
 
-        Validated i = Validated.validate(predicate, "Help").apply(2);
+        Validated i = validate(predicate, "Help").apply(2);
 
         assertFalse(i.isValid());
         assertEquals("Help", i.projectInvalid().getInternal());
@@ -35,7 +37,7 @@ public class ValidatedTest {
     public void projectValidThrowsValidationProjectionExceptionWhenInvalid() {
         Predicate<Integer> predicate = i -> i > 3;
 
-        Validated i = Validated.validate(predicate, "Help").apply(2);
+        Validated i = validate(predicate, "Help").apply(2);
 
         i.projectValid().getInternal();
     }
@@ -44,7 +46,7 @@ public class ValidatedTest {
     public void projectInvalidThrowsValidationProjectionExceptionWhenInvalid() {
         Predicate<Integer> predicate = i -> i > 1;
 
-        Validated i = Validated.validate(predicate, "Help").apply(2);
+        Validated i = validate(predicate, "Help").apply(2);
 
         i.projectInvalid().getInternal();
     }
@@ -55,27 +57,23 @@ public class ValidatedTest {
         Predicate<User> userIsNotPensionable = u -> u.age < 65;
         Predicate<User> userIsJohn = u -> u.name.contains("John");
 
-        User u1 = new User("John", 34);
-        User u2 = new User("Tim", 67);
+        Validated validatedJohn = combine(
+                validate(userIsJohn, "User is not John"),
+                validate(userIsWorkingAdult, "User is not over 18"),
+                validate(userIsNotPensionable, "User is not under 65")
+        ).apply(new User("John", 34));
+
+        Validated validatedTim = combine(
+                validate(userIsJohn, "User is not John"),
+                validate(userIsWorkingAdult, "User is not over 18"),
+                validate(userIsNotPensionable, "User is not under 65")
+        ).apply(new User("Tim", 67));
 
 
-        Validated john = Validated.combine(
-                Validated.validate(userIsJohn, "User is not John"),
-                Validated.validate(userIsWorkingAdult, "User is not over 18"),
-                Validated.validate(userIsNotPensionable, "User is not under 65")
-        ).apply(u1);
+        assertTrue(validatedJohn.isValid());
+        assertFalse(validatedTim.isValid());
 
-        Validated tim = Validated.combine(
-                Validated.validate(userIsJohn, "User is not John"),
-                Validated.validate(userIsWorkingAdult, "User is not over 18"),
-                Validated.validate(userIsNotPensionable, "User is not under 65")
-        ).apply(u2);
-
-
-        assertTrue(john.isValid());
-        assertFalse(tim.isValid());
-
-        List<Invalid> reasons = (List<Invalid>) tim.projectInvalid().getInternal();
+        List<Invalid> reasons = (List<Invalid>) validatedTim.projectInvalid().getInternal();
         assertEquals(2, reasons.size());
         assertEquals("User is not John", reasons.get(0).getInternal());
         assertEquals("User is not under 65", reasons.get(1).getInternal());
