@@ -203,8 +203,8 @@ public final class FList<T> {
      */
 
     public final FList<FList<T>> split(Predicate<T> predicate) {
-        FList<T> matches = of(this.innerList.stream().filter(predicate).collect(toList()));
-        FList<T> nonMatches = of(this.innerList.stream().filter(predicate.negate()).collect(toList()));
+        FList<T> matches = filter(predicate);
+        FList<T> nonMatches = filter(predicate.negate());
         return of(matches, nonMatches);
     }
 

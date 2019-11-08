@@ -44,7 +44,7 @@ public class Table {
     }
 
     public FList<TableRow> getRowsWhere(TableQuery query) {
-        return FList.of(tableRows.toArrayList().stream().filter(r -> query.evaluate(header, r)).collect(toList()));
+        return tableRows.filter(r -> query.evaluate(header, r));
     }
 
 
