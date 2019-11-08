@@ -103,7 +103,7 @@ public final class List<T> {
      * @return the underlying collection
      */
 
-    public final ArrayList<T> get() {
+    public final ArrayList<T> toArrayList() {
         return innerList;
     }
 
@@ -255,7 +255,7 @@ public final class List<T> {
      * <pre>
      *     {@code List l = new List.of(1,2,3,4,5);}
      *     {@code BiFunction foldFunction = (acc, t) -> acc + t;}
-     *     {@code l.foldLeft(0).apply(foldFunction);}
+     *     {@code l.foldLeft(0).row(foldFunction);}
      * </pre>
      *
      * @param seed the value into which the items should be folded - this can be a collection too

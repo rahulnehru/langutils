@@ -28,16 +28,16 @@ public class ListTest {
     @Test
     public void getReturnsInternalArrayListWhenInstantiatedWithParam() {
         List l = List.of("hello", "world");
-        assertEquals(ArrayList.class, l.get().getClass());
-        assertEquals("hello", l.get().get(0));
-        assertEquals("world", l.get().get(1));
+        assertEquals(ArrayList.class, l.toArrayList().getClass());
+        assertEquals("hello", l.toArrayList().get(0));
+        assertEquals("world", l.toArrayList().get(1));
     }
 
     @Test
     public void getReturnsInternalArrayListWhenInstantiatedWithNoParam() {
         List l = List.empty();
-        assertEquals(ArrayList.class, l.get().getClass());
-        assertEquals(0, l.get().size());
+        assertEquals(ArrayList.class, l.toArrayList().getClass());
+        assertEquals(0, l.toArrayList().size());
     }
 
     @Test
@@ -50,17 +50,17 @@ public class ListTest {
     public void mapReturnsMappedListWhenNotEmpty() {
         List l = List.of("foo", "bar", "bat");
         List<String> r = l.map(t -> "wow");
-        assertEquals(3, r.get().size());
-        assertEquals("wow", r.get().get(0));
-        assertEquals("wow", r.get().get(1));
-        assertEquals("wow", r.get().get(2));
+        assertEquals(3, r.toArrayList().size());
+        assertEquals("wow", r.toArrayList().get(0));
+        assertEquals("wow", r.toArrayList().get(1));
+        assertEquals("wow", r.toArrayList().get(2));
     }
 
     @Test
     public void mapReturnEmptyListWhenEmpty() {
         List l = List.empty();
         List r = l.map(t -> "wow");
-        assertEquals(0, r.get().size());
+        assertEquals(0, r.toArrayList().size());
     }
 
     @Test
@@ -128,8 +128,8 @@ public class ListTest {
         List<String> r = l.add("world");
 
         assertEquals(2, r.size());
-        assertEquals("hello", r.get().get(0));
-        assertEquals("world", r.get().get(1));
+        assertEquals("hello", r.toArrayList().get(0));
+        assertEquals("world", r.toArrayList().get(1));
     }
 
     @Test
@@ -138,7 +138,7 @@ public class ListTest {
         List<String> r = l.add("world");
 
         assertEquals(1, r.size());
-        assertEquals("world", r.get().get(0));
+        assertEquals("world", r.toArrayList().get(0));
     }
 
     @Test
@@ -150,8 +150,8 @@ public class ListTest {
         assertEquals(2, splits.size());
         assertEquals(2, splits.get(0).size());
         assertEquals(2, splits.get(1).size());
-        assertTrue(splits.get(0).get().stream().allMatch(getReds));
-        assertTrue(splits.get(1).get().stream().allMatch(getReds.negate()));
+        assertTrue(splits.get(0).toArrayList().stream().allMatch(getReds));
+        assertTrue(splits.get(1).toArrayList().stream().allMatch(getReds.negate()));
     }
 
     @Test
@@ -290,19 +290,19 @@ public class ListTest {
 
     @Test
     public void flattenReturnsEmptyListWhenListContainsEmptyLists() {
-        Collection l1 = List.empty().get();
-        Collection l2 = List.empty().get();
-        Collection l3 = List.empty().get();
+        Collection l1 = List.empty().toArrayList();
+        Collection l2 = List.empty().toArrayList();
+        Collection l3 = List.empty().toArrayList();
         List l = List.of(l1, l2, l3);
         assertTrue(l.flatten().isEmpty());
     }
 
     @Test
     public void flattenReturnsFlattenedListWhenCollectionsNotEmpty() {
-        Collection l1 = List.of("a").get();
-        Collection l2 = List.of("b").get();
-        Collection l3 = List.of("c").get();
-        List l = List.of(List.empty().get(), l1, l2, l3).flatten();
+        Collection l1 = List.of("a").toArrayList();
+        Collection l2 = List.of("b").toArrayList();
+        Collection l3 = List.of("c").toArrayList();
+        List l = List.of(List.empty().toArrayList(), l1, l2, l3).flatten();
         assertFalse(l.isEmpty());
         assertEquals("a", l.get(0));
         assertEquals("b", l.get(1));
