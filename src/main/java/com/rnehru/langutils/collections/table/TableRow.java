@@ -1,20 +1,20 @@
 package com.rnehru.langutils.collections.table;
 
-import com.rnehru.langutils.collections.List;
+import com.rnehru.langutils.collections.FList;
 
 public class TableRow {
 
-    private List<Object> items;
+    private FList<Object> items;
 
     TableRow(Object... items) {
-        this.items = List.of(items);
+        this.items = FList.of(items);
     }
 
     public int size() {
         return items.size();
     }
 
-    public List<Object> getItems() {
+    public FList<Object> getItems() {
         return items;
     }
 

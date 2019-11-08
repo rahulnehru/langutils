@@ -1,7 +1,6 @@
 package com.rnehru.langutils.collections.table;
 
-import com.rnehru.langutils.collections.List;
-import com.rnehru.langutils.collections.table.*;
+import com.rnehru.langutils.collections.FList;
 import com.rnehru.langutils.collections.table.TableQueryUtils.FalseQuery;
 import com.rnehru.langutils.collections.table.TableQueryUtils.TrueQuery;
 import org.junit.Test;
@@ -81,7 +80,7 @@ public class TableTest {
                 row(3, 4)
         );
 
-        List<TableRow> tr = t.getRowsWhere(new TrueQuery());
+        FList<TableRow> tr = t.getRowsWhere(new TrueQuery());
         assertEquals(2, tr.size());
         assertEquals(1, tr.get(0).getItems().get(0));
         assertEquals(2, tr.get(0).getItems().get(1));
@@ -97,7 +96,7 @@ public class TableTest {
                 row(3, 4)
         );
 
-        List<TableRow> tr = t.getRowsWhere(new FalseQuery());
+        FList<TableRow> tr = t.getRowsWhere(new FalseQuery());
         assertEquals(0, tr.size());
     }
 
@@ -117,7 +116,7 @@ public class TableTest {
         );
 
 
-        List<TableRow> rows = t.getRowsWhere(
+        FList<TableRow> rows = t.getRowsWhere(
                 and(
                         valueOf("key1", i -> (Integer) i < 3),
                         valueOf("key2", i -> (Integer) i < 5)
@@ -141,7 +140,7 @@ public class TableTest {
         );
 
 
-        List<TableRow> rows = t.getRowsWhere(
+        FList<TableRow> rows = t.getRowsWhere(
                 or(
                         valueOf("key1", i -> (Integer) i < 3),
                         valueOf("key2", i -> (Integer) i < 5)

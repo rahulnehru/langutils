@@ -1,6 +1,6 @@
 package com.rnehru.langutils.collections.table;
 
-import com.rnehru.langutils.collections.List;
+import com.rnehru.langutils.collections.FList;
 
 import java.util.Map;
 
@@ -9,7 +9,7 @@ import static java.util.stream.Collectors.toList;
 public class Table {
 
     private TableHeader header;
-    private List<TableRow> tableRows;
+    private FList<TableRow> tableRows;
 
     public static TableRow row(Object... items) {
         return new TableRow(items);
@@ -35,7 +35,7 @@ public class Table {
                 }
             }
         }
-        this.tableRows = List.of(tableRows);
+        this.tableRows = FList.of(tableRows);
         this.header = tableHeader;
     }
 
@@ -43,8 +43,8 @@ public class Table {
         return tableRows.get(idx).getItems().zipWith((item, index) -> header.getHeaders().get(index));
     }
 
-    public List<TableRow> getRowsWhere(TableQuery query) {
-        return List.of(tableRows.toArrayList().stream().filter(r -> query.evaluate(header, r)).collect(toList()));
+    public FList<TableRow> getRowsWhere(TableQuery query) {
+        return FList.of(tableRows.toArrayList().stream().filter(r -> query.evaluate(header, r)).collect(toList()));
     }
 
 

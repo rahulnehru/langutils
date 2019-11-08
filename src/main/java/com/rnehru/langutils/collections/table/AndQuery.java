@@ -1,20 +1,20 @@
 package com.rnehru.langutils.collections.table;
 
-import com.rnehru.langutils.collections.List;
+import com.rnehru.langutils.collections.FList;
 
 import java.util.Arrays;
 
 public class AndQuery<T> implements TableQuery<T> {
 
-    private List<TableQuery<?>> queries;
+    private FList<TableQuery<?>> queries;
 
-    private AndQuery(List<TableQuery<?>> queries) {
+    private AndQuery(FList<TableQuery<?>> queries) {
         this.queries = queries;
     }
 
 
     public static AndQuery and(TableQuery<?>... queries) {
-        return new AndQuery<>(List.of(Arrays.asList(queries)));
+        return new AndQuery<>(FList.of(Arrays.asList(queries)));
     }
 
     @Override

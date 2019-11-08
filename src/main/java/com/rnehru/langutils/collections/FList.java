@@ -15,11 +15,11 @@ import static java.util.stream.Collectors.toList;
  *
  * @param <T> type of underlying object in ArrayList
  */
-public final class List<T> {
+public final class FList<T> {
 
     private ArrayList<T> innerList;
 
-    private List() {
+    private FList() {
         this.innerList = new ArrayList<>();
     }
 
@@ -30,8 +30,8 @@ public final class List<T> {
      * @return new empty List
      */
 
-    public static <T> List<T> empty() {
-        return new List<>();
+    public static <T> FList<T> empty() {
+        return new FList<>();
     }
 
     /**
@@ -43,8 +43,8 @@ public final class List<T> {
      */
 
     @SafeVarargs
-    public static <T> List<T> of(T... items) {
-        List<T> newList = new List<>();
+    public static <T> FList<T> of(T... items) {
+        FList<T> newList = new FList<>();
         newList.innerList.addAll(Arrays.asList(items));
         return newList;
     }
@@ -57,16 +57,21 @@ public final class List<T> {
      * @return new List with items from collection
      */
 
-    public static <T> List<T> of(Collection<T> items) {
-        List<T> newList = new List<>();
+    public static <T> FList<T> of(Collection<T> items) {
+        FList<T> newList = new FList<>();
         newList.innerList.addAll(items);
         return newList;
     }
 
-    public List<T> merge(List<T> otherList) {
-        List<T> l = this;
+    public FList<T> merge(FList<T> otherList) {
+        FList<T> l = this;
         l.innerList.addAll(otherList.innerList);
         return l;
+    }
+
+
+    public FList<T> filter(Predicate<T> filterCondition) {
+        return of(this.innerList.stream().filter(filterCondition).collect(toList()));
     }
 
     /**
@@ -79,8 +84,8 @@ public final class List<T> {
      */
 
     @SafeVarargs
-    public static <T> List<T> of(Collection<T> items, T... t) {
-        List<T> newList = of(items);
+    public static <T> FList<T> of(Collection<T> items, T... t) {
+        FList<T> newList = of(items);
         newList.innerList.addAll(Arrays.asList(t));
         return newList;
     }
@@ -93,7 +98,7 @@ public final class List<T> {
      * @return new List with items of type R
      */
 
-    public final <R> List map(Function<T, R> mapper) {
+    public final <R> FList map(Function<T, R> mapper) {
         return of(innerList.stream().map(mapper).collect(toList()));
     }
 
@@ -181,7 +186,7 @@ public final class List<T> {
      */
 
     @SafeVarargs
-    public final List<T> add(T... t) {
+    public final FList<T> add(T... t) {
         return of(this.innerList, t);
     }
 
@@ -197,9 +202,9 @@ public final class List<T> {
      * @return a List containing two lists, split at the point where the
      */
 
-    public final List<List<T>> split(Predicate<T> predicate) {
-        List<T> matches = of(this.innerList.stream().filter(predicate).collect(toList()));
-        List<T> nonMatches = of(this.innerList.stream().filter(predicate.negate()).collect(toList()));
+    public final FList<FList<T>> split(Predicate<T> predicate) {
+        FList<T> matches = of(this.innerList.stream().filter(predicate).collect(toList()));
+        FList<T> nonMatches = of(this.innerList.stream().filter(predicate.negate()).collect(toList()));
         return of(matches, nonMatches);
     }
 
@@ -210,8 +215,8 @@ public final class List<T> {
      * @return List containing sublists of max size
      */
 
-    public final List<List<T>> split(int size) {
-        List<List<T>> l = new List<>();
+    public final FList<FList<T>> split(int size) {
+        FList<FList<T>> l = new FList<>();
         for (int min = 0; min < this.innerList.size(); min += size) {
             int max = this.innerList.size() > min + size ? min + size : this.innerList.size();
             l.innerList.add(of(this.innerList.subList(min, max)));
@@ -226,7 +231,7 @@ public final class List<T> {
      * @return new list, which is the sublist from index=1
      */
 
-    public final List<T> tail() {
+    public final FList<T> tail() {
         return size() > 0 ? of(innerList.subList(1, size())) : of();
     }
 
@@ -266,7 +271,7 @@ public final class List<T> {
     public final <U> Function<BiFunction<U, T, U>, U> foldLeft(U seed) {
         return function -> {
             U acc = this.headOption().isPresent() ? function.apply(seed, this.head()) : seed;
-            List<T> tail = this.tail();
+            FList<T> tail = this.tail();
             while (tail.size() > 0) {
                 acc = function.apply(acc, tail.head());
                 tail = tail.tail();
@@ -281,19 +286,19 @@ public final class List<T> {
      * @return a new list with the order reversed
      */
 
-    public final List<T> reverse() {
+    public final FList<T> reverse() {
         java.util.List<T> al = new ArrayList<>();
         for (int i = this.innerList.size() - 1; i >= 0; i--) {
             al.add(this.innerList.get(i));
         }
-        return List.of(al);
+        return FList.of(al);
     }
 
-    public final <U> List<U> flatten() {
-        return this.foldLeft(List.<U>empty()).apply((acc, l) ->
+    public final <U> FList<U> flatten() {
+        return this.foldLeft(FList.<U>empty()).apply((acc, l) ->
                 ObjectMatch.match(l,
-                        ObjectMatch.map(Collection.class, c -> acc.merge(List.<U>of(c))),
-                        ObjectMatch.map(List.class, (Function<List, List>) acc::merge)
+                        ObjectMatch.map(Collection.class, c -> acc.merge(FList.<U>of(c))),
+                        ObjectMatch.map(FList.class, (Function<FList, FList>) acc::merge)
                 ));
     }
 
