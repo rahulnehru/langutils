@@ -70,6 +70,10 @@ public final class FList<T> {
     }
 
 
+    /** Creates a new list with filtered items that match a predicate
+     * @param filterCondition condition to apply to each item in list which must be met
+     * @return new FList with only items that match predicate
+     */
     public FList<T> filter(Predicate<T> filterCondition) {
         return of(this.innerList.stream().filter(filterCondition).collect(toList()));
     }
