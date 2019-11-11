@@ -63,6 +63,10 @@ public final class FList<T> {
         return newList;
     }
 
+    /** Combines multiple FLists by appending to the tail
+     * @param otherList other FList to be appended to tail
+     * @return new FList with new items added
+     */
     public FList<T> merge(FList<T> otherList) {
         FList<T> l = this;
         l.innerList.addAll(otherList.innerList);
