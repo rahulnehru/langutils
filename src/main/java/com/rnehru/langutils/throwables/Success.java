@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 public final class Success<T> implements Try<T> {
 
-    private T o;
+    private final T o;
 
     Success(T o) {
         this.o = o;

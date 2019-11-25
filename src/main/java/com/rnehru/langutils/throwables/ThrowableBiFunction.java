@@ -30,7 +30,7 @@ public interface ThrowableBiFunction<T, U, R> {
      * @param u second object on which the function is applied
      * @param recoveryFunction function to be used to recover in case if this ThrowableFunction indeed throws
      * @return value of successful application of the original, or recoveryFunction
-     * @throws Exception when the function and recover function both faile
+     * @throws Exception when the function and recover function both failed
      */
 
     default R acceptOrElse(T t, U u, ThrowableBiFunction<T, U, R > recoveryFunction) throws Exception {

@@ -27,7 +27,7 @@ import java.util.function.Predicate;
  *      combine(
  *          validate(isAdult, "validation failed, user is not an adult"),
  *          validate(isCalledTom, "validation failed, user is called Tom")
- *      ).row(new User("Tom", 15));
+ *      ).apply(new User("Tom", 15));
  * }
  * </pre>
  *

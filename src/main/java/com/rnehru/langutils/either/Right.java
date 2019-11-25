@@ -15,7 +15,7 @@ public final class Right<R> implements Either {
     }
     
     /** Maps the Right value
-     * @param mapper function used to map the ledt and right values
+     * @param mapper function used to map the left and right values
      * @return a Right containing the mapped value
      */
     

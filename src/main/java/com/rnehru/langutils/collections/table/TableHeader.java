@@ -2,9 +2,9 @@ package com.rnehru.langutils.collections.table;
 
 import com.rnehru.langutils.collections.FList;
 
-public class TableHeader {
+public final class TableHeader {
 
-    private FList<String> headers;
+    private final FList<String> headers;
 
     TableHeader(String... headers) {
         this.headers = FList.of(headers);

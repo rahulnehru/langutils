@@ -43,7 +43,7 @@ public interface Either<L, R> {
      * @param mapper function used to map the left and right values
      * @param <T> type of value to be mapped, one of the original types in the Left or Right
      * @param <A> type of Left to be returned
-     * @param <B> type of Right to be returnes
+     * @param <B> type of Right to be returns
      * @return an either (Left or Right) containing the mapped value
      */
 

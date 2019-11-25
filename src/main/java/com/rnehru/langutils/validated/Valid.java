@@ -2,7 +2,7 @@ package com.rnehru.langutils.validated;
 
 public class Valid<T> implements Validated {
 
-    private T t;
+    private final T t;
 
     private Valid(T t) {
         this.t = t;

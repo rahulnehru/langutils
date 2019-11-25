@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
  */
 public final class FList<T> {
 
-    private ArrayList<T> innerList;
+    private final ArrayList<T> innerList;
 
     private FList() {
         this.innerList = new ArrayList<>();
@@ -259,8 +259,8 @@ public final class FList<T> {
      * @return Returns Optional.empty() if the list is empty, or Optional.of(x) where x is the first element in the list
      */
 
-    public final Optional<T> headOption() {
-        return Try.apply(l -> l.head(), this).getOption();
+    public final Optional headOption() {
+        return Try.apply(FList::head, this).getOption();
     }
 
     /**
@@ -268,7 +268,7 @@ public final class FList<T> {
      * <pre>
      *     {@code List l = new List.of(1,2,3,4,5);}
      *     {@code BiFunction foldFunction = (acc, t) -> acc + t;}
-     *     {@code l.foldLeft(0).row(foldFunction);}
+     *     {@code l.foldLeft(0).apply(foldFunction);}
      * </pre>
      *
      * @param seed the value into which the items should be folded - this can be a collection too
@@ -280,7 +280,7 @@ public final class FList<T> {
         return function -> {
             U acc = this.headOption().isPresent() ? function.apply(seed, this.head()) : seed;
             FList<T> tail = this.tail();
-            while (tail.size() > 0) {
+            while (!tail.isEmpty()) {
                 acc = function.apply(acc, tail.head());
                 tail = tail.tail();
             }

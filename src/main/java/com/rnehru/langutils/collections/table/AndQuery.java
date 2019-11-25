@@ -4,9 +4,9 @@ import com.rnehru.langutils.collections.FList;
 
 import java.util.Arrays;
 
-public class AndQuery<T> implements TableQuery<T> {
+public final class AndQuery<T> implements TableQuery<T> {
 
-    private FList<TableQuery<?>> queries;
+    private final FList<TableQuery<?>> queries;
 
     private AndQuery(FList<TableQuery<?>> queries) {
         this.queries = queries;

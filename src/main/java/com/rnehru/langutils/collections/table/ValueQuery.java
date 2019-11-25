@@ -2,10 +2,10 @@ package com.rnehru.langutils.collections.table;
 
 import java.util.function.Predicate;
 
-public class ValueQuery<T> implements TableQuery<T> {
+public final class ValueQuery<T> implements TableQuery<T> {
 
-    private String key;
-    private Predicate<T> p;
+    private final String key;
+    private final Predicate<T> p;
 
     private ValueQuery(String key, Predicate<T> p) {
         this.key = key;

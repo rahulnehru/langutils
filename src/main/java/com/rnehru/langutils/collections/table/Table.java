@@ -4,9 +4,7 @@ import com.rnehru.langutils.collections.FList;
 
 import java.util.Map;
 
-import static java.util.stream.Collectors.toList;
-
-public class Table {
+public final class Table {
 
     private TableHeader header;
     private FList<TableRow> tableRows;

@@ -4,8 +4,8 @@ import java.util.function.Function;
 
 public final class Failure implements Try {
 
-    private StackTraceElement[] stackTraceElement;
-    private String cause;
+    private final StackTraceElement[] stackTraceElement;
+    private final String cause;
 
     Failure(StackTraceElement[] s, String cause) {
         this.stackTraceElement = s;

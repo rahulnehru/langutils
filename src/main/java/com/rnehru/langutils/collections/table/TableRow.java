@@ -2,9 +2,9 @@ package com.rnehru.langutils.collections.table;
 
 import com.rnehru.langutils.collections.FList;
 
-public class TableRow {
+public final class TableRow {
 
-    private FList<Object> items;
+    private final FList<Object> items;
 
     TableRow(Object... items) {
         this.items = FList.of(items);
