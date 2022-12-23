@@ -12,13 +12,12 @@ public final class AndQuery<T> implements TableQuery<T> {
         this.queries = queries;
     }
 
-
     public static AndQuery and(TableQuery<?>... queries) {
         return new AndQuery<>(FList.of(Arrays.asList(queries)));
     }
 
     @Override
-    public boolean evaluate(TableHeader header, TableRow r) {
+    public final boolean evaluate(TableHeader header, TableRow r) {
         return queries.toArrayList().stream().allMatch(q -> q.evaluate(header, r));
     }
 }

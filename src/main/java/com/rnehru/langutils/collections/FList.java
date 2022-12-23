@@ -232,7 +232,6 @@ public final class FList<T> {
         return l;
     }
 
-
     /**
      * Used to get the tail of the list, or empty if the List has one or less elements
      *

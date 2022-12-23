@@ -2,19 +2,20 @@ package com.rnehru.langutils.collections.table;
 
 import com.rnehru.langutils.collections.FList;
 
-public final class TableRow {
-
-    private final FList<Object> items;
+/**
+ * TableRow is the representation of a row in a Table.
+ */
+public final class TableRow extends TableAttributes<Object> {
 
     TableRow(Object... items) {
         this.items = FList.of(items);
     }
 
-    public int size() {
-        return items.size();
-    }
-
-    public FList<Object> getItems() {
+    /**
+     * Returns the values in the row
+     * @return FList containing the values
+     */
+    public final FList<Object> getItems() {
         return items;
     }
 

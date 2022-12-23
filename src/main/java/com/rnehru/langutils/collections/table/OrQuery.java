@@ -12,13 +12,12 @@ public final class OrQuery<T> implements TableQuery<T> {
         this.queries = queries;
     }
 
-
     public static OrQuery or(TableQuery<?>... queries) {
         return new OrQuery<>(FList.of(Arrays.asList(queries)));
     }
 
     @Override
-    public boolean evaluate(TableHeader header, TableRow r) {
+    public final boolean evaluate(TableHeader header, TableRow r) {
         return queries.toArrayList().stream().anyMatch(q -> q.evaluate(header, r));
     }
 }
