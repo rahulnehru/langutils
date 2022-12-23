@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 public final class Left<L> implements Either {
 
-    private L inner;
+    private final L inner;
 
     /** Constructor for the Left implementation of Either
      * @param inner value to be captured in Left

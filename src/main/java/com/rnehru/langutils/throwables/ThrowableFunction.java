@@ -27,7 +27,7 @@ public interface ThrowableFunction<T, R> {
      * @param t object on which the ThrowableFunction and recoveryFunction should be applied
      * @param recoveryFunction function to be used to recover in case if this ThrowableFunction indeed throws
      * @return value of successful application of the original, or recoveryFunction
-     * @throws Exception when the function and recover function both faile
+     * @throws Exception when the function and recover function both failed
      */
 
     default R acceptOrElse(T t, ThrowableFunction<T,R > recoveryFunction) throws Exception {

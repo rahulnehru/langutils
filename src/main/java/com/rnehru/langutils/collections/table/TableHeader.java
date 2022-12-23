@@ -1,23 +1,23 @@
 package com.rnehru.langutils.collections.table;
 
-import com.rnehru.langutils.collections.List;
+import com.rnehru.langutils.collections.FList;
 
-public class TableHeader {
-
-    private List<String> headers;
+/**
+ * TableHeader is the representation of the columns headings in a Table.
+ */
+public final class TableHeader extends TableAttributes<String> {
 
     TableHeader(String... headers) {
-        this.headers = List.of(headers);
+        this.items = FList.of(headers);
     }
 
-    public int size() {
-        return headers.size();
+    /**
+     * Gets the headers as String values of the table
+     * @return an FList of String values of the table.
+     */
+
+    public final FList<String> getHeaders() {
+        return this.items;
     }
-
-    public List<String> getHeaders() {
-        return this.headers;
-    }
-
-
 
 }

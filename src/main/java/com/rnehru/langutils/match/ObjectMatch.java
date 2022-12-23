@@ -118,7 +118,7 @@ public final class ObjectMatch {
      * @param c function to be applied to matched object
      * @param <T> type to match and map against
      * @param <R> resulting type
-     * @param p predicate function that object of type T must satisy
+     * @param p predicate function that object of type T must satisfy
      * @return mapped value of type R
      */
 

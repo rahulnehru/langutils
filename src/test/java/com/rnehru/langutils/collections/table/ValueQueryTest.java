@@ -1,7 +1,6 @@
 package com.rnehru.langutils.collections.table;
 
-import com.rnehru.langutils.collections.List;
-import com.rnehru.langutils.collections.table.*;
+import com.rnehru.langutils.collections.FList;
 import org.junit.Test;
 
 import static com.rnehru.langutils.collections.table.Table.header;
@@ -46,7 +45,7 @@ public class ValueQueryTest {
                 row(3, 3)
         );
 
-        List<TableRow> rows = t.getRowsWhere(
+        FList<TableRow> rows = t.getRowsWhere(
                 valueOf("key2", i -> (Integer) i < 4)
         );
 
